@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://grossiste-brule-parfum.fr/sitemap.xml
