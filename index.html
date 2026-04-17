@@ -1045,7 +1045,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
     <h2 class="section-title">Recevez votre catalogue tarifs sous 24h</h2>
     <div class="contact-grid">
       <div class="contact-form">
-        <form action="#contact" method="POST">
+        <form id="contact-form" action="#contact">
           <div class="form-row">
             <div class="form-group">
               <label for="prenom">Prénom</label>
@@ -1081,8 +1081,45 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
             <label for="message">Gamme(s) souhaitée(s) et volumes estimés</label>
             <textarea id="message" name="message" placeholder="Ex : brûle-parfum céramique ~60 pcs/trimestre, quelques références cascade…"></textarea>
           </div>
+          <input type="hidden" name="_honeypot" value="">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_subject" value="Demande catalogue — Grossiste Brûle-Parfum">
           <button type="submit" class="btn-submit">Recevoir le catalogue &amp; les tarifs →</button>
         </form>
+        <div id="form-success" style="display:none;padding:16px;background:#edf7f1;border:1px solid #2e7d52;border-radius:8px;color:#1a4a2e;font-weight:600;margin-top:12px;">
+          ✓ Message envoyé — nous vous répondons sous 24h ouvrées.
+        </div>
+        <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          var form = e.target;
+          var btn = form.querySelector('button[type=submit]');
+          btn.disabled = true;
+          btn.textContent = 'Envoi en cours…';
+          var data = new FormData(form);
+          data.append('name', (form.prenom.value + ' ' + form.nom.value).trim());
+          fetch('https://formsubmit.co/ajax/admin@accessibledigital.com', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: data
+          })
+          .then(function(r){ return r.json(); })
+          .then(function(r){
+            if (r.success) {
+              form.style.display = 'none';
+              document.getElementById('form-success').style.display = 'block';
+            } else {
+              btn.disabled = false;
+              btn.textContent = 'Recevoir le catalogue \u0026 les tarifs \u2192';
+              alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+            }
+          })
+          .catch(function(){
+            btn.disabled = false;
+            btn.textContent = 'Recevoir le catalogue \u0026 les tarifs \u2192';
+          });
+        });
+        </script>
       </div>
       <div class="contact-info">
         <h3>Nous répondons sous 24h ouvrées</h3>
