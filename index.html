@@ -1099,6 +1099,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
           e.preventDefault();
           var form = e.target;
           var btn = form.querySelector('button[type=submit]');
+          if (btn.disabled) return;
           btn.disabled = true;
           btn.textContent = 'Envoi en cours…';
           var data = new FormData(form);
