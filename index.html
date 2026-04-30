@@ -282,7 +282,9 @@ header { background: var(--white); border-bottom: 1px solid var(--border); posit
 
 /* CATALOGUE */
 .catalogue-section { background: var(--bg); }
-.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+@media (max-width: 1000px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .products-grid { grid-template-columns: 1fr; } }
 .product-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s; }
 .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .product-thumb { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3rem; background: var(--violet-light); position: relative; }
@@ -303,7 +305,9 @@ header { background: var(--white); border-bottom: 1px solid var(--border); posit
 
 /* USAGE SECTION */
 .usage-section { background: var(--white); }
-.usage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.usage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .usage-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .usage-grid { grid-template-columns: 1fr; } }
 .usage-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: transform .15s, box-shadow .15s; }
 .usage-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .usage-icon { font-size: 1.8rem; margin-bottom: 10px; }
@@ -324,7 +328,9 @@ header { background: var(--white); border-bottom: 1px solid var(--border); posit
 
 /* PRICING */
 .pricing-section { background: var(--bg); }
-.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+@media (max-width: 1000px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .pricing-grid { grid-template-columns: 1fr; } }
 .pricing-card { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 28px; position: relative; background: var(--white); transition: transform .2s, box-shadow .2s; }
 .pricing-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .pricing-card.featured { border-color: var(--violet); background: var(--violet); color: var(--white); }
@@ -356,7 +362,9 @@ header { background: var(--white); border-bottom: 1px solid var(--border); posit
 
 /* LOGISTIQUE */
 .logistique-section { background: var(--white); }
-.logistique-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.logistique-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .logistique-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .logistique-grid { grid-template-columns: 1fr; } }
 .logi-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; text-align: center; }
 .logi-icon { font-size: 2rem; margin-bottom: 10px; }
 .logi-title { font-size: .95rem; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
@@ -364,7 +372,9 @@ header { background: var(--white); border-bottom: 1px solid var(--border); posit
 
 /* AVIS */
 .reviews-section { background: var(--bg); }
-.reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 900px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .reviews-grid { grid-template-columns: 1fr; } }
 .review-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow-sm); }
 .review-stars { color: #f0b020; font-size: .95rem; margin-bottom: 10px; }
 .review-text { font-size: .88rem; color: var(--ink-light); line-height: 1.6; margin-bottom: 14px; font-style: italic; }
