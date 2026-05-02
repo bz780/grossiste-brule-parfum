@@ -426,6 +426,34 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
 .footer-col ul li a { font-size: .83rem; color: rgba(255,255,255,.6); transition: color .15s; }
 .footer-col ul li a:hover { color: var(--white); text-decoration: none; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: .78rem; }
+
+/* FILTRES TRANSVERSES */
+.filters-bar { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+.filters-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.filters-count { font-size: .88rem; font-weight: 600; color: var(--ink); }
+.filters-reset { background: transparent; border: 1px solid var(--violet); color: var(--violet); padding: 6px 14px; border-radius: var(--radius-sm); font-size: .78rem; font-weight: 600; cursor: pointer; transition: background .15s, color .15s; }
+.filters-reset:hover { background: var(--violet); color: var(--white); }
+.filters-groups { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.filter-group { display: flex; flex-direction: column; gap: 8px; }
+.filter-label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--violet-dark); }
+.filter-options { display: flex; flex-direction: column; gap: 4px; }
+.filter-options label { display: flex; align-items: center; gap: 7px; font-size: .82rem; color: var(--ink); cursor: pointer; padding: 3px 4px; border-radius: 4px; transition: background .12s; user-select: none; }
+.filter-options label:hover { background: var(--violet-light); }
+.filter-options label.is-disabled { opacity: .35; cursor: not-allowed; }
+.filter-options input[type="checkbox"] { accent-color: var(--violet); margin: 0; }
+.opt-count { margin-left: auto; font-size: .72rem; color: var(--ink-light); font-variant-numeric: tabular-nums; }
+.product-card.is-hidden { display: none !important; }
+.filters-empty { font-size: .9rem; color: var(--ink-light); text-align: center; padding: 12px 0 0; margin: 0; }
+@media (max-width: 900px) { .filters-groups { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) {
+  .filters-groups { grid-template-columns: 1fr; gap: 8px; }
+  .filter-group { border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .filter-label { padding: 10px 12px; margin: 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .filter-label::after { content: "+"; font-size: 1.1rem; line-height: 1; }
+  .filter-group.is-open .filter-label::after { content: "−"; }
+  .filter-options { display: none; padding: 0 12px 12px; }
+  .filter-group.is-open .filter-options { display: flex; }
+}
 </style>
 </head>
 
@@ -544,9 +572,53 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
     <h2 class="section-title">Brûle-parfum en céramique, métal, bois et plus</h2>
     <p class="section-desc">Toutes nos références sont en stock France. Les prix indiqués sont en euros HT, au niveau Découverte (6+ pièces). Remises progressives au-delà.</p>
 
+    <div class="filters-bar" data-filter-grid="products-grid">
+      <div class="filters-summary"><span class="filters-count" data-count>8 produits affichés</span><button type="button" class="filters-reset" data-reset hidden>Réinitialiser</button></div>
+      <div class="filters-groups">
+        <div class="filter-group">
+          <span class="filter-label">Matière</span>
+          <div class="filter-options">
+            <label><input type="checkbox" data-filter="matiere" value="ceramique"> Céramique <span class="opt-count" data-opt="matiere:ceramique"></span></label>
+            <label><input type="checkbox" data-filter="matiere" value="verre"> Verre <span class="opt-count" data-opt="matiere:verre"></span></label>
+            <label><input type="checkbox" data-filter="matiere" value="metal"> Métal <span class="opt-count" data-opt="matiere:metal"></span></label>
+            <label><input type="checkbox" data-filter="matiere" value="pierre"> Pierre <span class="opt-count" data-opt="matiere:pierre"></span></label>
+            <label><input type="checkbox" data-filter="matiere" value="bois"> Bois <span class="opt-count" data-opt="matiere:bois"></span></label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Type</span>
+          <div class="filter-options">
+            <label><input type="checkbox" data-filter="type" value="electrique"> Électrique <span class="opt-count" data-opt="type:electrique"></span></label>
+            <label><input type="checkbox" data-filter="type" value="a-bougie"> À bougie <span class="opt-count" data-opt="type:a-bougie"></span></label>
+            <label><input type="checkbox" data-filter="type" value="catalytique"> Catalytique <span class="opt-count" data-opt="type:catalytique"></span></label>
+            <label><input type="checkbox" data-filter="type" value="usb"> USB <span class="opt-count" data-opt="type:usb"></span></label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">MOQ</span>
+          <div class="filter-options">
+            <label><input type="checkbox" data-filter="moq" value="25"> 25 pièces <span class="opt-count" data-opt="moq:25"></span></label>
+            <label><input type="checkbox" data-filter="moq" value="50"> 50 pièces <span class="opt-count" data-opt="moq:50"></span></label>
+            <label><input type="checkbox" data-filter="moq" value="100"> 100 pièces <span class="opt-count" data-opt="moq:100"></span></label>
+            <label><input type="checkbox" data-filter="moq" value="250"> 250 et + <span class="opt-count" data-opt="moq:250"></span></label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Prix HT pièce</span>
+          <div class="filter-options">
+            <label><input type="checkbox" data-filter="prix" value="0-5"> Moins de 5 € <span class="opt-count" data-opt="prix:0-5"></span></label>
+            <label><input type="checkbox" data-filter="prix" value="5-12"> 5 à 12 € <span class="opt-count" data-opt="prix:5-12"></span></label>
+            <label><input type="checkbox" data-filter="prix" value="12-25"> 12 à 25 € <span class="opt-count" data-opt="prix:12-25"></span></label>
+            <label><input type="checkbox" data-filter="prix" value="sup-25"> Plus de 25 € <span class="opt-count" data-opt="prix:sup-25"></span></label>
+          </div>
+        </div>
+      </div>
+      <p class="filters-empty" data-empty hidden>Aucun produit ne correspond à votre sélection. Réinitialisez ou décochez une option.</p>
+    </div>
+
     <div class="products-grid">
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="ceramique" data-type="a-bougie" data-moq="25" data-prix="0-5">
         <div class="product-thumb">🏺
           <span class="product-badge top">Best-seller</span>
         </div>
@@ -567,7 +639,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="metal" data-type="catalytique" data-moq="50" data-prix="0-5">
         <div class="product-thumb">⚙️
           <span class="product-badge">Métal</span>
         </div>
@@ -578,7 +650,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
             <span class="meta-chip">Fondants</span>
           </div>
           <div class="product-name">Brûle-parfum métal bronze ajouré</div>
-          <p class="product-desc">Acier laqué effet bronze vieilli, motifs géométriques ajourés, stable sur toutes surfaces. Convient cônes et fondants.</p>
+          <p class="product-desc">Acier laqué effet bronze vieilli, motifs géométriques ajourés, stable sur toutes surfaces. Convient cônes et combustion catalytique.</p>
           <div class="product-pricing">
             <span class="price-new">4,80 €</span>
             <span class="price-unit">HT / pièce</span>
@@ -588,7 +660,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="ceramique" data-type="electrique" data-moq="100" data-prix="5-12">
         <div class="product-thumb">🌊
           <span class="product-badge">Cascade</span>
         </div>
@@ -596,9 +668,10 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
           <div class="product-meta">
             <span class="meta-chip">Céramique</span>
             <span class="meta-chip">Cônes back-flow</span>
+            <span class="meta-chip">LED</span>
           </div>
-          <div class="product-name">Brûle-parfum cascade waterfall</div>
-          <p class="product-desc">Effet cascade visuellement spectaculaire. Cônes back-flow inclus (×10). Idéal vitrines boutique et espaces zen.</p>
+          <div class="product-name">Brûle-parfum cascade électrique LED</div>
+          <p class="product-desc">Effet cascade visuellement spectaculaire avec base électrique LED. Cônes back-flow inclus (×10). Vitrines boutique et espaces zen.</p>
           <div class="product-pricing">
             <span class="price-new">6,90 €</span>
             <span class="price-unit">HT / pièce</span>
@@ -608,7 +681,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="pierre" data-type="a-bougie" data-moq="50" data-prix="5-12">
         <div class="product-thumb">🪨
           <span class="product-badge eco">Naturel</span>
         </div>
@@ -628,7 +701,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="bois" data-type="a-bougie" data-moq="25" data-prix="0-5">
         <div class="product-thumb">🪵
           <span class="product-badge eco">Éco</span>
         </div>
@@ -648,7 +721,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="ceramique" data-type="a-bougie" data-moq="50" data-prix="5-12">
         <div class="product-thumb">🎨
           <span class="product-badge">Artisanal</span>
         </div>
@@ -668,42 +741,42 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="ceramique" data-type="a-bougie" data-moq="250" data-prix="sup-25">
         <div class="product-thumb">✨
-          <span class="product-badge top">Bestseller coffret</span>
+          <span class="product-badge top">Coffret revendeur</span>
         </div>
         <div class="product-body">
           <div class="product-meta">
             <span class="meta-chip">Coffret</span>
             <span class="meta-chip">Fondants inclus</span>
           </div>
-          <div class="product-name">Set brûle-parfum + fondants cire ×6</div>
-          <p class="product-desc">Coffret cadeau prêt à revendre : 1 brûle-parfum céramique + 6 fondants de cire parfumés assortis. Emballage kraft inclus.</p>
+          <div class="product-name">Coffret revendeur brûle-parfum + 24 fondants</div>
+          <p class="product-desc">Lot grossiste prêt à revendre : 4 brûle-parfums céramique + 24 fondants de cire parfumés assortis. Carton vente boutique inclus.</p>
           <div class="product-pricing">
-            <span class="price-new">8,90 €</span>
-            <span class="price-unit">HT / set</span>
+            <span class="price-new">28,00 €</span>
+            <span class="price-unit">HT / coffret</span>
           </div>
-          <div class="product-moq">Min. 12 sets · Dès 48 : 7,20 € HT</div>
+          <div class="product-moq">Min. 250 unités · Dès 500 : 24,00 € HT</div>
           <a href="#contact" class="btn-product">Demander le tarif dégressif</a>
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-matiere="verre" data-type="usb" data-moq="100" data-prix="12-25">
         <div class="product-thumb">🔮
-          <span class="product-badge">Résine</span>
+          <span class="product-badge">USB</span>
         </div>
         <div class="product-body">
           <div class="product-meta">
-            <span class="meta-chip">Résine</span>
-            <span class="meta-chip">Encens</span>
+            <span class="meta-chip">Verre / résine</span>
+            <span class="meta-chip">USB rechargeable</span>
           </div>
-          <div class="product-name">Brûle-parfum résine artisanal</div>
-          <p class="product-desc">Résine coulée à la main, formes géométriques ou organiques, couleurs pétales séchées. Marché premium et spiritualité.</p>
+          <div class="product-name">Diffuseur verre USB rechargeable</div>
+          <p class="product-desc">Diffuseur ultrasonique alimentation USB-C, dôme en verre soufflé, 7 couleurs LED, 4h d'autonomie. Marché premium et spiritualité.</p>
           <div class="product-pricing">
-            <span class="price-new">8,50 €</span>
+            <span class="price-new">14,50 €</span>
             <span class="price-unit">HT / pièce</span>
           </div>
-          <div class="product-moq">Min. 6 pcs · Dès 24 pcs : 7,00 € HT</div>
+          <div class="product-moq">Min. 100 pcs · Dès 250 pcs : 12,00 € HT</div>
           <a href="#contact" class="btn-product">Demander le tarif dégressif</a>
         </div>
       </div>
@@ -1259,6 +1332,97 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
   </div>
 </footer>
 
+<script>
+(function(){
+  var bar = document.querySelector('.filters-bar[data-filter-grid]');
+  if (!bar) return;
+  var gridSel = bar.getAttribute('data-filter-grid');
+  var grid = bar.parentElement.querySelector('.' + gridSel);
+  if (!grid) return;
+  var cards = Array.prototype.slice.call(grid.children).filter(function(c){ return c.nodeType === 1; });
+  var checkboxes = bar.querySelectorAll('input[type="checkbox"][data-filter]');
+  var countEl = bar.querySelector('[data-count]');
+  var resetBtn = bar.querySelector('[data-reset]');
+  var emptyEl = bar.querySelector('[data-empty]');
+  var noun = (countEl && /produit/i.test(countEl.textContent)) ? 'produits' : 'éléments';
+  var total = cards.length;
+
+  function getActive(){
+    var byKey = {};
+    checkboxes.forEach(function(cb){
+      if (cb.checked){
+        var k = cb.getAttribute('data-filter');
+        (byKey[k] = byKey[k] || []).push(cb.value);
+      }
+    });
+    return byKey;
+  }
+  function matches(card, active){
+    var keys = Object.keys(active);
+    for (var i=0;i<keys.length;i++){
+      var k = keys[i];
+      var v = card.getAttribute('data-' + k);
+      if (active[k].indexOf(v) === -1) return false;
+    }
+    return true;
+  }
+  function apply(){
+    var active = getActive();
+    var visible = 0;
+    cards.forEach(function(card){
+      if (matches(card, active)){ card.classList.remove('is-hidden'); visible++; }
+      else card.classList.add('is-hidden');
+    });
+    countEl.textContent = visible + ' ' + noun + (visible === total ? ' affichés' : ' sur ' + total);
+    emptyEl.hidden = visible !== 0;
+    var anyActive = Object.keys(active).length > 0;
+    resetBtn.hidden = !anyActive;
+    // Disable options that would yield 0 results given current filters of OTHER groups
+    checkboxes.forEach(function(cb){
+      if (cb.checked) { cb.parentElement.classList.remove('is-disabled'); return; }
+      var k = cb.getAttribute('data-filter');
+      var hypothetical = {};
+      Object.keys(active).forEach(function(kk){ if (kk !== k) hypothetical[kk] = active[kk]; });
+      hypothetical[k] = [cb.value];
+      var n = 0;
+      cards.forEach(function(card){ if (matches(card, hypothetical)) n++; });
+      var opt = bar.querySelector('[data-opt="' + k + ':' + cb.value + '"]');
+      if (opt) opt.textContent = '(' + n + ')';
+      cb.parentElement.classList.toggle('is-disabled', n === 0);
+      cb.disabled = n === 0;
+    });
+  }
+  function init(){
+    // initial counts
+    checkboxes.forEach(function(cb){
+      var k = cb.getAttribute('data-filter');
+      var v = cb.value;
+      var n = cards.filter(function(c){ return c.getAttribute('data-' + k) === v; }).length;
+      var opt = bar.querySelector('[data-opt="' + k + ':' + v + '"]');
+      if (opt) opt.textContent = '(' + n + ')';
+    });
+    countEl.textContent = total + ' ' + noun + ' affichés';
+    checkboxes.forEach(function(cb){ cb.addEventListener('change', apply); });
+    resetBtn.addEventListener('click', function(){
+      checkboxes.forEach(function(cb){ cb.checked = false; cb.disabled = false; cb.parentElement.classList.remove('is-disabled'); });
+      apply();
+      cards.forEach(function(c){ c.classList.remove('is-hidden'); });
+      countEl.textContent = total + ' ' + noun + ' affichés';
+      emptyEl.hidden = true;
+      resetBtn.hidden = true;
+    });
+    // Mobile accordion
+    bar.querySelectorAll('.filter-group .filter-label').forEach(function(lbl){
+      lbl.addEventListener('click', function(){
+        if (window.matchMedia('(max-width: 540px)').matches){
+          lbl.parentElement.classList.toggle('is-open');
+        }
+      });
+    });
+  }
+  init();
+})();
+</script>
 <!--/email_off-->
 </body>
 </html>
