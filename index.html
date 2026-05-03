@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <meta name="referrer" content="origin">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grossiste Brûle-Parfum — Céramique, Métal, Bois en Gros | Prix Pro Dégressifs</title>
@@ -1181,7 +1182,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
 <button type="submit" class="btn-submit">Recevoir le catalogue &amp; les tarifs →</button>
         </form>
         <div id="form-success" style="display:none;padding:16px;background:#edf7f1;border:1px solid #2e7d52;border-radius:8px;color:#1a4a2e;font-weight:600;margin-top:12px;">
-          ✓ Message envoyé — nous vous répondons sous 24h ouvrées.
+          ✓ Bien reçu, merci. Un commercial vous rappelle sous 4h ouvrées avec votre devis.
         </div>
         <script>
 /* Formsubmit AJAX handler — v2 (turnstile+timing) */
@@ -1225,7 +1226,7 @@ footer { background: #1a1215; color: rgba(255,255,255,.7); padding: 40px 0 24px;
 
     try {
       const data = new FormData(form);
-      const res = await fetch('https://formsubmit.co/ajax/admin@accessibledigital.com', {
+      const res = await fetch('https://formsubmit.co/ajax/admin@accessibledigital.com', {referrerPolicy:'origin',/*RP_FIXED*/
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: data,
